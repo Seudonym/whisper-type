@@ -10,7 +10,6 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfree = true; # needed for cuda
       };
 
       pythonEnv = pkgs.python3.withPackages (
@@ -29,7 +28,6 @@
           ydotool
         ];
         text = ''
-          export LD_LIBRARY_PATH="${pkgs.portaudio}/lib:$LD_LIBRARY_PATH"
           exec ${pythonEnv}/bin/python ${./main.py} "$@"
         '';
       };
@@ -53,9 +51,9 @@
           openssl
           libnotify
         ];
-        shellHook = ''
-          export LD_LIBRARY_PATH="${pkgs.portaudio}/lib:$LD_LIBRARY_PATH"
-        '';
+        # shellHook = ''
+        #   export LD_LIBRARY_PATH="${pkgs.portaudio}/lib:$LD_LIBRARY_PATH"
+        # '';
       };
     };
 }
