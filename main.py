@@ -48,7 +48,7 @@ class STTTyper:
         )
         self.stream.start()
         self.recording = True
-        subprocess.Popen(["notify-send", "-t", "2000", "🎙 Recording…"])
+        subprocess.Popen(["notify-send", "--app-name", "Whisper Type", "🎙 Recording…"])
 
     def stop_recording(self):
         self.recording = False
@@ -56,7 +56,9 @@ class STTTyper:
             self.stream.stop()
             self.stream.close()
             self.stream = None
-        subprocess.Popen(["notify-send", "-t", "2000", "⏹ Transcribing…"])
+        subprocess.Popen(
+            ["notify-send", "--app-name", "Whisper Type", "⏹ Transcribing…"]
+        )
 
         with self.lock:
             chunks = list(self.audio_data)
